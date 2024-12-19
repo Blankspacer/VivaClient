@@ -20,7 +20,7 @@ const Navbar = () => {
   ];
 
   return (
-    <header className={cn("bg-[#1a1a1a]")}>
+    <header className={cn("bg-[#1a1a1a] my-0")}>
       <div className={cn("max-w-7xl mx-auto border-b border-[#373737]")}>
         <nav
           className={cn(

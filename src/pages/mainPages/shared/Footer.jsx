@@ -1,4 +1,3 @@
-import React from "react";
 import { cn } from "@/lib/utils";
 import { Facebook, Twitter, Mail, PinIcon as Pinterest } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -31,24 +30,6 @@ const Footer = () => {
         </div>
 
         {/* newsletter */}
-        {/* <div className={cn("max-w-xl mx-auto mb-8")}>
-          <div className={cn("flex flex-col sm:flex-row")}>
-            <input
-              type="email"
-              placeholder="Enter your email to join newsletter..."
-              className={cn(
-                "flex-1 px-8 py-4 rounded bg-gray-800 text-gray-300 border border-gray-700 focus:outline-none focus:border-orange-500"
-              )}
-            />
-            <button
-              className={cn(
-                "px-6 py-2 bg-[#FD5927] text-white rounded hover:bg-[#FD805A] transition-colors"
-              )}
-            >
-              Subscribe
-            </button>
-          </div>
-        </div> */}
 
         <div className={cn("max-w-xl mx-auto mb-8")}>
           <div className={cn("flex")}>

@@ -1,10 +1,10 @@
-import MarqueeSection from "../../components/common/MarqueeSection";
+import HeroSlider from "./shared/HeroSection";
 
 const HomePage = () => {
   return (
-    <>
-      <MarqueeSection />
-    </>
+    <div>
+      <HeroSlider />
+    </div>
   );
 };
 
