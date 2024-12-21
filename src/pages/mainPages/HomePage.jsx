@@ -1,11 +1,13 @@
 import ProductTab from "@/components/HomePage/ProductTab";
-import HeroSlider from "./shared/HeroSection";
+import FeaturedProducts from "@/components/HomePage/FeaturedProducts";
+import HeroSection from "@/components/HomePage/HeroSection";
 
 const HomePage = () => {
   return (
     <div>
-      <HeroSlider />
+      <HeroSection />
       <ProductTab />
+      <FeaturedProducts />
     </div>
   );
 };

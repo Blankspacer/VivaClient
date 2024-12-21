@@ -6,31 +6,36 @@ const ProductTab = () => {
       id: 1,
       name: "Direct mail",
       category: "BOOKLETS",
-      image: "/api/placeholder/280/400",
+      image:
+        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1711534158/cld-sample-2.jpg",
     },
     {
       id: 2,
       name: "Handcover",
       category: "BROUCHERS",
-      image: "/api/placeholder/280/400",
+      image:
+        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1711534158/cld-sample-2.jpg",
     },
     {
       id: 3,
       name: "Catalogs",
       category: "BUSINESS_CARDS",
-      image: "/api/placeholder/280/400",
+      image:
+        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1712596948/un21p5amgim7vbc3yokf.jpg",
     },
     {
       id: 4,
       name: "Paper back Books",
       category: "CARDS_AND_INVITATIONS",
-      image: "/api/placeholder/280/400",
+      image:
+        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1712596948/un21p5amgim7vbc3yokf.jpg",
     },
     {
       id: 5,
       name: "Banner Display",
       category: "SINGS_BANNER_DISPLAY",
-      image: "/api/placeholder/280/400",
+      image:
+        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1712596948/un21p5amgim7vbc3yokf.jpg",
     },
   ];
 
@@ -84,15 +89,13 @@ const ProductTab = () => {
                 {product.name}
               </h3>
             </div>
-            <div className="group rounded-lg border border-gray-200 bg-white shadow-sm cursor-pointer hover:shadow-lg transition-shadow">
-              <div className="p-4">
-                <div className="relative aspect-[3/4]">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
+            <div className="group rounded-lg shadow-sm cursor-pointer hover:shadow-lg transition-shadow">
+              <div className="relative aspect-[3/4]">
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className="w-full h-full object-cover bg-white rounded-lg"
+                />
               </div>
             </div>
             <button className="w-full mt-2 py-2 text-gray-100 hover:text-gray-200 transition-colors">

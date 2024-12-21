@@ -2,8 +2,8 @@ import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Link } from "react-router-dom";
 import Marquee from "react-fast-marquee";
-import banner1 from "../../../assets/banner1.jpg";
-import banner2 from "../../../assets/banner2.jpg";
+import banner1 from "../../assets/banner1.jpg";
+import banner2 from "../../assets/banner2.jpg";
 
 const slides = [
   {
@@ -53,7 +53,7 @@ const navItems = [
   },
 ];
 
-const HeroSlider = () => {
+const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   return (
@@ -136,4 +136,4 @@ const HeroSlider = () => {
   );
 };
 
-export default HeroSlider;
+export default HeroSection;
