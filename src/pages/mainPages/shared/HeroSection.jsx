@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import Marquee from "react-fast-marquee";
+import { Link } from "react-router-dom";
 import banner1 from "../../../assets/banner1.jpg";
 import banner2 from "../../../assets/banner2.jpg";
 
@@ -72,7 +72,7 @@ const HeroSlider = () => {
 
       {/* Navigation menu */}
       <div className="absolute top-10 left-0 right-0 bg-[#1a1a1a] text-center py-2 border-y-4 border-[#ff4800] z-10">
-        <div className="flex justify-center flex-auto space-x-8">
+        <div className="flex justify-center flex-auto space-x-8 overflow-x-auto">
           {navItems.map((item) => (
             <Link
               key={item.title}
