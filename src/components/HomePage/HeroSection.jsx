@@ -72,7 +72,7 @@ const HeroSection = () => {
 
       {/* Navigation menu */}
       <div className="absolute top-10 left-0 right-0 bg-[#1a1a1a] text-center py-2 border-y-4 border-[#ff4800] z-10">
-        <div className="flex justify-center flex-auto space-x-8">
+        <div className="flex justify-center flex-auto overflow-x-auto space-x-8">
           {navItems.map((item) => (
             <Link
               key={item.title}
@@ -101,10 +101,10 @@ const HeroSection = () => {
         >
           <div className="absolute inset-0 bg-black bg-opacity-70">
             <div className="flex flex-col items-center  h-full pt-32 text-center">
-              <h1 className="text-white text-6xl font-extrabold mb-8">
+              <h1 className="text-white md:text-6xl md:mt-0 mt-10 text-4xl font-extrabold mb-8">
                 {slide.title}
               </h1>
-              <p className="text-[#ff4800] text-4xl font-semibold max-w-5xl mb-8">
+              <p className="text-[#ff4800] md:text-4xl  text-3xl font-semibold max-w-5xl mb-8">
                 {slide.description}
               </p>
               <Link

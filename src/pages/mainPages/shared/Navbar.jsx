@@ -1,7 +1,7 @@
+import { cn } from "@/lib/utils";
+import { Menu, ShoppingCart, X } from "lucide-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ShoppingCart, Menu, X } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const Navbar = () => {
   const location = useLocation();
