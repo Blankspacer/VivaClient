@@ -80,30 +80,36 @@ const ProductTab = () => {
         ))}
       </div>
 
-      {/* products */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {filteredProducts.map((product) => (
-          <div key={product.id}>
-            <div className="mt-4 mb-4">
-              <h3 className="text-lg font-medium text-center text-gray-600">
-                {product.name}
-              </h3>
-            </div>
-            <div className="group rounded-lg shadow-sm cursor-pointer hover:shadow-lg transition-shadow">
-              <div className="relative aspect-[3/4]">
-                <img
-                  src={product.image}
-                  alt={product.name}
-                  className="w-full h-full object-cover bg-white rounded-lg"
-                />
+      {/* cards */}
+      {filteredProducts.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filteredProducts.map((product) => (
+            <div key={product.id}>
+              <div className="mt-4 mb-4">
+                <h3 className="text-lg font-medium text-center text-gray-600">
+                  {product.name}
+                </h3>
               </div>
+              <div className="group rounded-lg shadow-sm cursor-pointer hover:shadow-lg transition-shadow">
+                <div className="relative aspect-[3/4]">
+                  <img
+                    src={product.image}
+                    alt={product.name}
+                    className="w-full h-full object-cover bg-white rounded-lg"
+                  />
+                </div>
+              </div>
+              <button className="w-full mt-2 py-2 text-gray-100 hover:text-gray-200 transition-colors">
+                shop now
+              </button>
             </div>
-            <button className="w-full mt-2 py-2 text-gray-100 hover:text-gray-200 transition-colors">
-              shop now
-            </button>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <h1 className="mt-16 mb-8 text-4xl font-extrabold text-red-500 min-w-full text-center align-middle  place-content-center">
+          No products in this Category
+        </h1>
+      )}
     </div>
   );
 };
