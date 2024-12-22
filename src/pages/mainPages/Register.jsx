@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [togglePassword, setTogglePassword] = useState(true);
@@ -169,10 +169,13 @@ const Register = () => {
           </div>
         </form>
         <h4 className="text-white flex justify-center gap-2 mt-2">
-          Already have an account?{" "}
-          <a className="cursor-pointer text-blue-600" href="/login">
+          Already have an account ?{" "}
+          <Link
+            to="/login"
+            className=" bg-clip-text text-transparent bg-gradient-to-r from-orange-600 via-orange-400 to-red-400 font-medium"
+          >
             Login Here
-          </a>
+          </Link>
         </h4>
       </div>
     </div>

@@ -1,13 +1,29 @@
+import { Button } from "@/components/ui/button";
+import useAuth from "@/hooks/useAuth";
 import { cn } from "@/lib/utils";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
 
+  const { auth, logout } = useAuth();
+
   const toggleMenu = () => setIsOpen(!isOpen);
+
+  // handle logout
+  const handleLogOut = async () => {
+    const res = await logout();
+
+    if (res.success) {
+      toast.success(res.message);
+    } else {
+      toast.error(res.message);
+    }
+  };
 
   const navItems = [
     { to: "/", text: "Home" },
@@ -16,7 +32,7 @@ const Navbar = () => {
     { to: "/customer-quote", text: "Customer Quote" },
     { to: "/resellers", text: "Resellers" },
     { to: "/contact", text: "Contact" },
-    { to: "/login", text: "Login", className: "text-green-500" },
+    !auth && { to: "/login", text: "Login", className: "text-green-500" },
   ];
 
   return (
@@ -82,6 +98,17 @@ const Navbar = () => {
               >
                 <ShoppingCart className="w-5 h-5" />
               </Link>
+
+              {auth && (
+                <Button
+                  className="ml-10"
+                  size="default"
+                  onClick={handleLogOut}
+                  variant="viva"
+                >
+                  Logout
+                </Button>
+              )}
             </li>
           </ul>
         </nav>
