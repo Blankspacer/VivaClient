@@ -6,8 +6,22 @@ import MainLayout from "../layouts/MainLayout";
 const HomePage = lazy(() => import("../pages/mainPages/HomePage"));
 const Login = lazy(() => import("../pages/mainPages/Login"));
 const Register = lazy(() => import("../pages/mainPages/Register"));
+const PaperSample = lazy(() =>
+  import("../pages/mainPages/paperSample/PaperSample")
+);
+const CustomQuote = lazy(() =>
+  import("../pages/mainPages/customQuote/CustomQuote")
+);
 
-const Loading = () => <div>Loading...</div>;
+const ResellerPage = lazy(() =>
+  import("../pages/mainPages/resellersPage/ResellersPage")
+);
+
+const ContactUs = lazy(() => import("../pages/mainPages/contactUs/ContactUs"));
+
+const About = lazy(() => import("../pages/mainPages/about/About"));
+
+const Loading = lazy(() => import("../components/ui/Loading"));
 
 const routes = createBrowserRouter([
   {
@@ -24,14 +38,34 @@ const routes = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "login",
-        element: <Login />,
+        path: "/paper-sample",
+        element: <PaperSample />,
       },
       {
-        path: "register",
-        element: <Register />,
+        path: "/customer-quote",
+        element: <CustomQuote />,
+      },
+      {
+        path: "/resellers",
+        element: <ResellerPage />,
+      },
+      {
+        path: "/contact",
+        element: <ContactUs />,
+      },
+      {
+        path: "/about",
+        element: <About />,
       },
     ],
+  },
+  {
+    path: "login",
+    element: <Login />,
+  },
+  {
+    path: "register",
+    element: <Register />,
   },
 ]);
 
