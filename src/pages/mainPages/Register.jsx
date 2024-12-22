@@ -31,7 +31,7 @@ const Register = () => {
       };
       console.log(User);
       await axios.post(
-        `${import.meta.env.VITE_API_URL}/api/users/singup`,
+        `${import.meta.env.VITE_API_URL}/api/users/signup`,
         User
       );
       toast.success("SignUp Successful");
