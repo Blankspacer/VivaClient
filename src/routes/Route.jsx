@@ -21,6 +21,18 @@ const ContactUs = lazy(() => import("../pages/mainPages/contactUs/ContactUs"));
 
 const About = lazy(() => import("../pages/mainPages/about/About"));
 
+const BookletProduct = lazy(() =>
+  import("../pages/mainPages/bookletProductPage/BookletProduct")
+);
+
+const ShoppingCart = lazy(() =>
+  import("../pages/mainPages/productCart/ProductCart")
+);
+
+const ProductDetails = lazy(() =>
+  import("../pages/mainPages/productDetails/ProductDetails")
+);
+
 const Loading = lazy(() => import("../components/ui/Loading"));
 
 const routes = createBrowserRouter([
@@ -56,6 +68,30 @@ const routes = createBrowserRouter([
       {
         path: "/about",
         element: <About />,
+      },
+      {
+        path: "/:category",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <BookletProduct />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/cart",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ShoppingCart />
+          </Suspense>
+        ),
+      },
+      {
+        path: "/product/:id",
+        element: (
+          <Suspense fallback={<Loading />}>
+            <ProductDetails />
+          </Suspense>
+        ),
       },
     ],
   },

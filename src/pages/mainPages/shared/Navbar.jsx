@@ -62,7 +62,7 @@ const Navbar = () => {
           {/* Navigation Links - Desktop */}
           <ul className={cn("hidden sm:flex items-center space-x-1")}>
             {navItems.map((item, index) => (
-              <React.Fragment key={item.to}>
+              <React.Fragment key={index}>
                 <li>
                   <Link
                     to={item.to}

@@ -25,31 +25,31 @@ const slides = [
 const navItems = [
   {
     title: "Booklets",
-    href: "/booklets",
+    href: "booklets",
   },
   {
     title: "Advertising Essentials",
-    href: "/advertising",
+    href: "advertising",
   },
   {
     title: "Brouchers",
-    href: "/brouchers",
+    href: "brouchers",
   },
   {
     title: "Business Cards",
-    href: "/cards",
+    href: "cards",
   },
   {
     title: "Cards and Invitations",
-    href: "/invites",
+    href: "invites",
   },
   {
     title: "Business Essentials",
-    href: "/essential",
+    href: "essential",
   },
   {
     title: "Signs, Banners, Displays",
-    href: "/banners",
+    href: "banners",
   },
 ];
 
@@ -76,7 +76,7 @@ const HeroSection = () => {
           {navItems.map((item) => (
             <Link
               key={item.title}
-              to="#"
+              to={`/${item.href}`}
               className="text-[#00ff00] hover:text-[#ff4800] text-sm transition-colors"
             >
               {item.title}

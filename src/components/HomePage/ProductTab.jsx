@@ -1,6 +1,9 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ProductTab = () => {
+  const navigate = useNavigate();
+
   const products = [
     {
       id: 1,
@@ -56,6 +59,10 @@ const ProductTab = () => {
     activeTab === "SHOW_ALL" ? true : product.category === activeTab
   );
 
+  const handleProduct = (id) => {
+    navigate(`/product/${id}`);
+  };
+
   return (
     <div className="max-w-7xl mx-auto p-6">
       <h1 className="text-3xl font-bold text-center mb-8 text-white">
@@ -84,7 +91,7 @@ const ProductTab = () => {
       {filteredProducts.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => (
-            <div key={product.id}>
+            <div key={product.id} onClick={() => handleProduct(product.id)}>
               <div className="mt-4 mb-4">
                 <h3 className="text-lg font-medium text-center text-gray-600">
                   {product.name}
@@ -99,7 +106,10 @@ const ProductTab = () => {
                   />
                 </div>
               </div>
-              <button className="w-full mt-2 py-2 text-gray-100 hover:text-gray-200 transition-colors">
+              <button
+                onClick={() => handleProduct(product.id)}
+                className="w-full mt-2 py-2 text-gray-100 hover:text-gray-200 transition-colors"
+              >
                 shop now
               </button>
             </div>
