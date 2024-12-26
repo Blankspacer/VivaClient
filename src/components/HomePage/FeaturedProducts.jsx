@@ -28,7 +28,7 @@ const FeaturedProducts = () => {
 
   return (
     <div className=" text-white py-16 px-4">
-      <h2 className="text-4xl font-bold text-center mb-16">
+      <h2 className="text-4xl uppercase font-bold text-center mb-16">
         Our featured Products
       </h2>
 

@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useLocation } from "react-router-dom";
 
+import vpLogo from "../../../assets/Viva_Logo.png";
+
 const Navbar = () => {
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
@@ -45,10 +47,7 @@ const Navbar = () => {
         >
           {/* Logo */}
           <Link to="/" className={cn("flex items-center py-4")}>
-            <span className={cn("text-2xl font-bold text-[#ff4800]")}>VP</span>
-            <span className="ml-2 text-sm text-gray-400 hidden sm:inline">
-              Viva Printing Pack
-            </span>
+            <img className="lg:w-28 w-24" src={vpLogo} alt="" />
           </Link>
 
           {/* Mobile menu button */}
