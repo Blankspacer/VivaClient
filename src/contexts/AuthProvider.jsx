@@ -55,8 +55,39 @@ const AuthProvider = ({ children }) => {
     return () => clearInterval(interval);
   }, []);
 
+  const addCategory = async (credentials) => {
+    try {
+      const { data } = await axiosPublic.post("/api/categories", credentials);
+
+      console.log(data);
+
+      // if (data.success) {
+      //   // Save to localStorage
+      //   localStorage.setItem("userData", JSON.stringify(data.data));
+      // }
+
+      return data;
+    } catch (error) {
+      return error.response.data;
+    }
+  };
+
+  const getCategory = async () => {
+    try {
+      const { data } = await axiosPublic.get("/api/categories");
+
+      console.log(data);
+
+      return data;
+    } catch (error) {
+      return error.response.data;
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ auth, login, logout }}>
+    <AuthContext.Provider
+      value={{ auth, login, logout, addCategory, getCategory }}
+    >
       {children}
     </AuthContext.Provider>
   );

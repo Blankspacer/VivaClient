@@ -1,34 +1,38 @@
 import VivaSelect from "../common/VivaSelect";
+import VivaForm from "../Forms/VivaForm";
 
 const sizeData = [
-  { title: "8.5 x 11" },
-  { title: "8.5 x 14" },
-  { title: "11 x 17" },
-  { title: "12 x 18" },
-  { title: "13 x 19" },
+  { title: "8.5 x 11", value: "8.5 x 11" },
+  { title: "8.5 x 14", value: "8.5 x 11" },
+  { title: "11 x 17", value: "8.5 x 11" },
+  { title: "12 x 18", value: "12 x 18" },
+  { title: "13 x 19", value: "13 x 19" },
   { title: "Custom Size}" },
 ];
 
 const paperStockData = [
-  { title: "Coated Gloss - White" },
-  { title: "Coated Matte - White" },
-  { title: "Uncoated - White" },
-  { title: "Uncoated - Natural" },
-  { title: "Uncoated - Bright White" },
-  { title: "Uncoated - Cream" },
-  { title: "Uncoated - Gray" },
-  { title: "Uncoated - Ivory" },
-  { title: "Uncoated - Pastel Blue" },
-  { title: "Uncoated - Pastel Green" },
-  { title: "Uncoated - Pastel Pink" },
+  { title: "Coated Gloss - White", value: "gloss" },
+  { title: "Coated Matte - White", value: "matte" },
+  { title: "Uncoated - White", value: "white" },
+  { title: "Uncoated - Natural", value: "natural" },
+  { title: "Uncoated - Bright White", value: "bright" },
+  { title: "Uncoated - Cream", value: "cream" },
+  { title: "Uncoated - Gray", value: "gray" },
+  { title: "Uncoated - Ivory", value: "ivory" },
+  { title: "Uncoated - Pastel Blue", value: "blue" },
+  { title: "Uncoated - Pastel Green", value: "green" },
+  { title: "Uncoated - Pastel Pink", value: "pink" },
 ];
 
 const paperCoatingData = [
-  { title: "N/A For Selected Weight" },
-  { title: "N/A For Selected Weight" },
+  { title: "N/A For Selected Weight", value: "n/a" },
+  { title: "N/A For Selected Weight", value: "n/a" },
 ];
 
 const ProductCustomization = () => {
+  const handleProduct = (data) => {
+    console.log(data);
+  };
   return (
     <div className="p-6 shadow-md w-full max-w-2xl mx-auto text-white">
       <h1 className="text-2xl font-bold mb-2">Sell Sheets</h1>
@@ -54,73 +58,109 @@ const ProductCustomization = () => {
         targeted audiences.
       </p>
 
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-4">Printing</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
+      <VivaForm onSubmit={handleProduct}>
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold mb-4">Printing</h2>
+          <div className="grid grid-cols-2 gap-4 justify-center items-center">
+            <div>
+              <VivaSelect
+                label="Finished Size in Inches (W X H)"
+                options={sizeData}
+                name="size"
+              />
+
+              <button className="text-blue-500 text-xs mt-1">
+                Use Custom Dimensions
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              <label
+                htmlFor="finishedSize"
+                className="text-sm font-semibold flex justify-between items-center"
+              >
+                Total Quantity
+              </label>
+
+              <input
+                type="number"
+                className="w-full px-2 py-2 rounded-sm text-sm bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-600 content-center"
+              />
+              <button className="text-blue-500 text-xs mt-1">
+                Add Versions
+              </button>
+            </div>
             <VivaSelect
-              title="Finished Size in Inches (W X H)"
-              optionData={sizeData}
+              label="Paper Stock"
+              name="stock"
+              options={paperStockData}
+            />
+            <VivaSelect
+              label="Paper Weight"
+              name="weight"
+              options={paperStockData}
             />
 
-            <button className="text-blue-500 text-xs mt-1">
-              Use Custom Dimensions
-            </button>
-          </div>
-
-          <div>
-            <label
-              htmlFor="finishedSize"
-              className="text-xs font-medium mb-1 flex justify-between items-center"
-            >
-              Total Quantity
-            </label>
-
-            <input
-              type="number"
-              className="w-full px-2 py-2 rounded-sm text-sm bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-600 content-center"
+            <VivaSelect
+              label="Printing on the Front"
+              name="front"
+              options={[
+                { title: "Full Color", value: "full" },
+                { title: "Black Only", value: "black" },
+              ]}
             />
-            <button className="text-blue-500 text-xs mt-1">Add Versions</button>
+
+            <VivaSelect
+              label="Printing on the Back"
+              name="back"
+              options={[
+                { title: "None", value: "n/a" },
+                { title: "Full Color", value: "full" },
+                { title: "Black Only", value: "black" },
+              ]}
+            />
           </div>
-          <VivaSelect title="Paper Stock" optionData={paperStockData} />
-          <VivaSelect title="Paper Weight" optionData={paperStockData} />
-
-          <VivaSelect
-            title="Printing on the Front"
-            optionData={[{ title: "Full Color" }, { title: "Black Only" }]}
-          />
-
-          <VivaSelect
-            title="Printing on the Back"
-            optionData={[
-              { title: "None" },
-              { title: "Full Color" },
-              { title: "Black Only" },
-            ]}
-          />
         </div>
-      </div>
 
-      <div className="mb-6">
-        <h2 className="text-xl font-semibold mb-4">Finishing</h2>
-        <div className="grid grid-cols-2 gap-4">
-          {/* Finishing Options */}
+        <div className="mb-6">
+          <h2 className="text-xl font-semibold mb-4">Finishing</h2>
+          <div className="grid grid-cols-2 gap-4">
+            {/* Finishing Options */}
 
-          <VivaSelect title="Coating" optionData={paperCoatingData} />
+            <VivaSelect
+              label="Coating"
+              name="coat"
+              options={paperCoatingData}
+            />
 
-          <VivaSelect title="Laminating" optionData={paperCoatingData} />
+            <VivaSelect
+              label="Laminating"
+              name="laminate"
+              options={paperCoatingData}
+            />
 
-          <VivaSelect title="Perforating" />
+            <VivaSelect label="Perforating" name="perforate" />
 
-          <VivaSelect title="Variable Data Personalization" />
+            <VivaSelect label="Variable Data Personalization" name="size" />
 
-          <VivaSelect title="Drilling Options" />
+            <VivaSelect label="Drilling Options" name="size" />
 
-          <VivaSelect title="Rounded Corners" optionData={paperCoatingData} />
+            {/* <VivaSelect
+              label="Rounded Corners"
+              name="size"
+              options={paperCoatingData}
+            />
 
-          <VivaSelect title="Shrink-wrapping service" />
+            <VivaSelect
+              label="Shrink-wrapping service"
+              name="size"
+              options={paperCoatingData}
+            /> */}
+            {/* <VivaInput className="text-red-500" name={"name"} label={"Name"} /> */}
+          </div>
+          <button type="submit">Submit</button>
         </div>
-      </div>
+      </VivaForm>
     </div>
   );
 };

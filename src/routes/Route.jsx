@@ -2,6 +2,7 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
+import DashboardLayout from "@/layouts/DashboardLayout";
 
 const HomePage = lazy(() => import("../pages/mainPages/HomePage"));
 const Login = lazy(() => import("../pages/mainPages/Login"));
@@ -34,6 +35,12 @@ const ProductDetails = lazy(() =>
 );
 
 const Loading = lazy(() => import("../components/ui/Loading"));
+
+const AddProduct = lazy(() => import("../components/dashboard/AddProduct"));
+
+const AddCategory = lazy(() => import("../components/dashboard/AddCategory"));
+
+const AllCategory = lazy(() => import("../components/dashboard/AllCategory"));
 
 const routes = createBrowserRouter([
   {
@@ -102,6 +109,28 @@ const routes = createBrowserRouter([
   {
     path: "register",
     element: <Register />,
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <Suspense fallback={<Loading />}>
+        <DashboardLayout />
+      </Suspense>
+    ),
+    children: [
+      {
+        path: "add-product",
+        element: <AddProduct />,
+      },
+      {
+        path: "add-category",
+        element: <AddCategory />,
+      },
+      {
+        path: "all-category",
+        element: <AllCategory />,
+      },
+    ],
   },
 ]);
 
