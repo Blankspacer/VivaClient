@@ -1,23 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
-
-const PriceDisplay = ({ price, unitCost }) => {
-  return (
-    <div className="mb-4 text-white">
-      <div className=" text-sm mb-1">INSTANT QUOTE:</div>
-      <div className="text-3xl font-bold text-blue-500">
-        ${price.toFixed(2)}
-      </div>
-      <div className="text-sm  mt-1">
-        <span>UNIT COST: ${unitCost.toFixed(2)}</span>
-        <span className="mx-2">|</span>
-        <a href="#" className="text-blue-500 hover:underline">
-          Estimate Shipping
-        </a>
-      </div>
-    </div>
-  );
-};
+import PriceDisplay from "./PriceDisplay";
+import { useNavigate } from "react-router-dom";
 
 const AddToCartButton = ({ onClick }) => {
   return (
@@ -33,10 +17,28 @@ const AddToCartButton = ({ onClick }) => {
   );
 };
 
-export function FloatingAddToCart() {
-  const [isFloating, setIsFloating] = useState(true);
-  const price = 52.47;
-  const unitCost = 50.22;
+export function FloatingAddToCart({ data }) {
+  const navigate = useNavigate();
+  const [isFloating, setIsFloating] = useState(false);
+
+  console.log(data);
+
+  console.log(data?.pricingTiers[0].unitPrice);
+
+  // console.log(data);
+  const price = Number(data?.basePrice);
+  const unitCost = Number(data?.pricingTiers[0]?.unitPrice);
+
+  const total = Math.ceil(
+    Number(price) * Number(data?.pricingTiers[0].minQuantity)
+  );
+
+  const cost = {
+    total,
+    unitCost,
+  };
+
+  console.log({ total });
 
   // IntersectionObserver logic
   //   useEffect(() => {
@@ -80,22 +82,25 @@ export function FloatingAddToCart() {
 
   const handleAddToCart = () => {
     console.log("Added to cart");
+    navigate(`/cart/${data?._id}`);
   };
+
+  console.log(price);
 
   return (
     <>
       <div id="add-to-cart-section" className=" p-6">
-        <PriceDisplay price={price} unitCost={unitCost} />
-        <AddToCartButton onClick={handleAddToCart} />
+        <PriceDisplay cost={cost} />
+        <AddToCartButton onClick={() => handleAddToCart(data)} />
       </div>
 
       {/* floating version */}
       {isFloating && (
         <div className="fixed bottom-6 right-6 z-50 shadow-lg border-t p-4">
           <div className="flex items-center justify-between">
-            <PriceDisplay price={price} unitCost={unitCost} />
+            <PriceDisplay cost={cost} />
             <div className="flex-shrink-0 w-48">
-              <AddToCartButton onClick={handleAddToCart} />
+              <AddToCartButton onClick={() => handleAddToCart(data)} />
             </div>
           </div>
         </div>

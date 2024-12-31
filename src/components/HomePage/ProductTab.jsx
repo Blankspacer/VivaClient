@@ -1,59 +1,52 @@
+/* eslint-disable no-unused-vars */
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "../ui/Loading";
+import { generateTabs, transformProducts } from "@/helpers/transformProduct";
 
 const ProductTab = () => {
   const navigate = useNavigate();
 
-  const products = [
-    {
-      id: 1,
-      name: "Direct mail",
-      category: "BOOKLETS",
-      image:
-        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1711534158/cld-sample-2.jpg",
-    },
-    {
-      id: 2,
-      name: "Handcover",
-      category: "BROUCHERS",
-      image:
-        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1711534158/cld-sample-2.jpg",
-    },
-    {
-      id: 3,
-      name: "Catalogs",
-      category: "BUSINESS_CARDS",
-      image:
-        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1712596948/un21p5amgim7vbc3yokf.jpg",
-    },
-    {
-      id: 4,
-      name: "Paper back Books",
-      category: "CARDS_AND_INVITATIONS",
-      image:
-        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1712596948/un21p5amgim7vbc3yokf.jpg",
-    },
-    {
-      id: 5,
-      name: "Banner Display",
-      category: "SINGS_BANNER_DISPLAY",
-      image:
-        "https://res.cloudinary.com/daa4x7pfh/image/upload/v1712596948/un21p5amgim7vbc3yokf.jpg",
-    },
-  ];
-
-  const tabs = [
-    { id: "SHOW_ALL", label: "SHOW ALL" },
-    { id: "BOOKLETS", label: "BOOKLETS" },
-    { id: "ADVERTISING_ESSENTIALS", label: "ADVERTISING ESSENTIALS" },
-    { id: "BROUCHERS", label: "BROUCHERS" },
-    { id: "BUSINESS_CARDS", label: "BUSINESS CARDS" },
-    { id: "CARDS_AND_INVITATIONS", label: "CARDS AND INVITATIONS" },
-    { id: "BUSINESS_ESSENTIALS", label: "BUSINESS ESSENTIALS" },
-    { id: "SINGS_BANNER_DISPLAY", label: "SINGS BANNER DISPLAY" },
-  ];
-
+  const axiosSecure = useAxiosSecure();
   const [activeTab, setActiveTab] = useState("SHOW_ALL");
+  // const { data, refetch, isLoading } = useQuery({
+  //   queryKey: ["categories"],
+  //   queryFn: async () => {
+  //     const { data } = await axiosSecure.get("/api/categories");
+  //     console.log(data.data);
+  //     return data;
+  //   },
+  // });
+
+  const {
+    data: productsData,
+    refetch: productReFetch,
+    isLoading: productLoading,
+  } = useQuery({
+    queryKey: ["categories"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get("/api/products");
+
+      return data;
+    },
+  });
+
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
+
+  if (productLoading) {
+    return <Loading />;
+  }
+
+  // console.log({ data });
+
+  const products = transformProducts(productsData);
+  const tabs = generateTabs(productsData);
+
+  console.log({ products, tabs });
 
   const filteredProducts = products.filter((product) =>
     activeTab === "SHOW_ALL" ? true : product.category === activeTab
@@ -89,7 +82,7 @@ const ProductTab = () => {
 
       {/* cards */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
             <div key={product.id} onClick={() => handleProduct(product.id)}>
               <div className="mt-4 mb-4">
@@ -100,7 +93,7 @@ const ProductTab = () => {
               <div className="group rounded-lg shadow-sm cursor-pointer hover:shadow-lg transition-shadow">
                 <div className="relative aspect-[3/4]">
                   <img
-                    src={product.image}
+                    src={product.image.url}
                     alt={product.name}
                     className="w-full h-full object-cover bg-white rounded-lg"
                   />
