@@ -2,6 +2,8 @@
 import { useEffect, useState } from "react";
 import PriceDisplay from "./PriceDisplay";
 import { useNavigate } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
+import toast from "react-hot-toast";
 
 const AddToCartButton = ({ onClick }) => {
   return (
@@ -19,6 +21,7 @@ const AddToCartButton = ({ onClick }) => {
 
 export function FloatingAddToCart({ data }) {
   const navigate = useNavigate();
+  const { addToCart } = useAuth();
   const [isFloating, setIsFloating] = useState(false);
 
   console.log(data);
@@ -80,9 +83,24 @@ export function FloatingAddToCart({ data }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleAddToCart = () => {
-    console.log("Added to cart");
-    navigate(`/cart/${data?._id}`);
+  console.log({ data });
+  const res = {
+    productId: data?._id,
+    name: data?.name,
+    quantity: Number(data?.pricingTiers[0].minQuantity),
+    basePrice: price,
+    unitPrice: unitCost,
+    totalPrice: total,
+    totalCartPrice: total,
+  };
+  const handleAddToCart = async () => {
+    console.log("Added to cart", res);
+    const data = await addToCart(res);
+    console.log(data);
+    if (data.success == true) {
+      toast.success("Product Added To Cart");
+      navigate(`/cart`);
+    }
   };
 
   console.log(price);

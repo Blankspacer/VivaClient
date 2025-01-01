@@ -3,19 +3,19 @@ import Loading from "@/components/ui/Loading";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 
 const ShoppingCart = () => {
   const axiosSecure = useAxiosSecure();
-  const { id } = useParams();
   const [quantity, setQuantity] = useState(100);
-  const pricePerItem = 1.8704; // Price per catalog (187.04 / 100)
-  const subtotal = quantity * pricePerItem;
 
-  const { data, refetch, isLoading } = useQuery({
+  const {
+    data: cart,
+    refetch,
+    isLoading,
+  } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
-      const { data } = await axiosSecure.get(`/api/products/details/${id}`);
+      const { data } = await axiosSecure.get(`/api/cart`);
       return data.data;
     },
   });
@@ -24,12 +24,9 @@ const ShoppingCart = () => {
     return <Loading />;
   }
 
-  const price = Number(data?.basePrice);
-  const unitCost = Number(data?.pricingTiers[0]?.unitPrice);
-
-  const total = Math.ceil(
-    Number(price) * Number(data?.pricingTiers[0].minQuantity)
-  );
+  const total = cart.reduce((accumulator, currentItem) => {
+    return accumulator + currentItem.totalPrice;
+  }, 0);
 
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value, 10) || 0;
@@ -61,40 +58,53 @@ const ShoppingCart = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="py-4 px-4 border-b">
-                      <div className="flex items-center">
-                        <span className="mr-2">{data?.name}</span>
-                        <button className="text-xs text-blue-500">
-                          [ {data?.name} ]
-                        </button>
-                      </div>
-                      <div className="flex items-center mt-2">
-                        {/* <button className="text-xs text-blue-500 mr-2">
+                  {cart.length > 0 ? (
+                    cart.map((data) => (
+                      <tr key={data._id}>
+                        <td className="py-4 px-4 border-b">
+                          <div className="flex items-center">
+                            <span className="mr-2">{data?.name}</span>
+                            <button className="text-xs text-blue-500">
+                              [ {data?.name} ]
+                            </button>
+                          </div>
+                          <div className="flex items-center mt-2">
+                            {/* <button className="text-xs text-blue-500 mr-2">
                           ADD FILE[S]
                         </button> */}
-                        <button className="text-xs text-blue-500 mr-2">
-                          configuration
-                        </button>
-                        <button className="text-xs text-blue-500 mr-2">
-                          duplicate
-                        </button>
-                        <button className="text-xs text-blue-500">
-                          save for later
-                        </button>
-                      </div>
-                    </td>
-                    <td className="py-4 px-4 border-b">
-                      <input
-                        type="number"
-                        min="0"
-                        value={data?.pricingTiers[0].minQuantity}
-                        onChange={handleQuantityChange}
-                        className="w-20 border rounded px-2 py-1 text-black"
-                      />
-                    </td>
-                    <td className="py-4 px-4 border-b">${price}</td>
-                  </tr>
+                            <button className="text-xs text-blue-500 mr-2">
+                              configuration
+                            </button>
+                            <button className="text-xs text-blue-500 mr-2">
+                              duplicate
+                            </button>
+                            <button className="text-xs text-blue-500">
+                              save for later
+                            </button>
+                          </div>
+                        </td>
+                        <td className="py-4 px-4 border-b">
+                          <input
+                            type="number"
+                            min="0"
+                            value={data?.quantity}
+                            onChange={handleQuantityChange}
+                            className="w-20 border rounded px-2 py-1 text-black"
+                          />
+                        </td>
+                        <td className="py-4 px-4 border-b">
+                          $
+                          {Math.ceil(
+                            Number(data?.basePrice) * Number(data?.quantity)
+                          )}
+                        </td>
+                      </tr>
+                    ))
+                  ) : (
+                    <h1 className="text-center text-3xl text-red-500">
+                      No Product in Cart
+                    </h1>
+                  )}
                 </tbody>
               </table>
             </div>
