@@ -1,12 +1,15 @@
 import useAuth from "@/hooks/useAuth";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [togglePassword, setTogglePassword] = useState(true);
+
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   // toggle password
   const handlePasswordToggle = () => {
@@ -30,7 +33,7 @@ const Login = () => {
 
       if (response.success) {
         toast.success("Sign-In Successful");
-        navigate("/");
+        navigate(from, { replace: true });
       } else {
         toast.error(response.message || "Login failed. Please try again.");
       }

@@ -1,8 +1,9 @@
 /* eslint-disable react-refresh/only-export-components */
+import DashboardLayout from "@/layouts/DashboardLayout";
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../layouts/MainLayout";
-import DashboardLayout from "@/layouts/DashboardLayout";
+import AdminRoute from "./AdminRoute";
 
 const HomePage = lazy(() => import("../pages/mainPages/HomePage"));
 const Login = lazy(() => import("../pages/mainPages/Login"));
@@ -114,21 +115,36 @@ const routes = createBrowserRouter([
     path: "/dashboard",
     element: (
       <Suspense fallback={<Loading />}>
-        <DashboardLayout />
+        <AdminRoute>
+          <DashboardLayout />
+        </AdminRoute>
       </Suspense>
     ),
     children: [
       {
         path: "add-product",
-        element: <AddProduct />,
+        element: (
+          <AdminRoute>
+            <AddProduct />
+          </AdminRoute>
+        ),
       },
       {
         path: "add-category",
-        element: <AddCategory />,
+        element: (
+          <AdminRoute>
+            <AddCategory />
+          </AdminRoute>
+        ),
       },
       {
         path: "all-category",
-        element: <AllCategory />,
+        element: (
+          <AdminRoute>
+            {" "}
+            <AllCategory />
+          </AdminRoute>
+        ),
       },
     ],
   },

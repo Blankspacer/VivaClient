@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { Menu, ShoppingCart, X } from "lucide-react";
 import React, { useState } from "react";
 import toast from "react-hot-toast";
+import { RxDashboard } from "react-icons/rx";
 import { Link, useLocation } from "react-router-dom";
 
 import vpLogo from "../../../assets/Viva_Logo.png";
@@ -13,6 +14,8 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const { auth, logout } = useAuth();
+
+  console.log(auth?.role);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -98,16 +101,31 @@ const Navbar = () => {
                 <ShoppingCart className="w-5 h-5" />
               </Link>
 
-              {auth && (
-                <Button
-                  className="ml-10"
-                  size="default"
-                  onClick={handleLogOut}
-                  variant="viva"
-                >
-                  Logout
-                </Button>
-              )}
+              <div className="flex items-center gap-4">
+                {auth && (
+                  <>
+                    <Button
+                      className="ml-10"
+                      size="default"
+                      onClick={handleLogOut}
+                      variant="viva"
+                    >
+                      Logout
+                    </Button>
+                  </>
+                )}
+
+                {auth?.role === "admin" && (
+                  <p
+                    title="DashBoard"
+                    className="text-3xl ml-3  text-green-500 hover:text-[#ff4800]"
+                  >
+                    <Link to={"/dashboard"}>
+                      <RxDashboard />
+                    </Link>
+                  </p>
+                )}
+              </div>
             </li>
           </ul>
         </nav>
