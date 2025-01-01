@@ -31,6 +31,7 @@ const paperCoatingData = [
 ];
 
 const ProductCustomization = ({ data }) => {
+  console.log(data);
   const totalPrice = Math.ceil(
     Number(data?.basePrice) * Number(data?.pricingTiers[0].minQuantity)
   );

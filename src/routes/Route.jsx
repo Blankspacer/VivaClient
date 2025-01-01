@@ -86,7 +86,7 @@ const routes = createBrowserRouter([
         ),
       },
       {
-        path: "/cart/:id",
+        path: "/cart",
         element: (
           <Suspense fallback={<Loading />}>
             <ShoppingCart />
