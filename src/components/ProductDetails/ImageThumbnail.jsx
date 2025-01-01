@@ -7,11 +7,7 @@ const ImageThumbnail = ({ image, isActive, onClick }) => {
         isActive ? "border-blue-500" : "border-gray-200 hover:border-gray-300"
       }`}
     >
-      <img
-        src={image.thumbnail}
-        alt={image.alt}
-        className="w-full h-full object-cover"
-      />
+      <img src={image} alt={image.alt} className="w-full h-full object-cover" />
     </button>
   );
 };

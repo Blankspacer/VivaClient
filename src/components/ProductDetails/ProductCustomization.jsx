@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import VivaSelect from "../common/VivaSelect";
 import VivaForm from "../Forms/VivaForm";
 
@@ -29,34 +30,53 @@ const paperCoatingData = [
   { title: "N/A For Selected Weight", value: "n/a" },
 ];
 
-const ProductCustomization = () => {
+const ProductCustomization = ({ data }) => {
+  const totalPrice = Math.ceil(
+    Number(data?.basePrice) * Number(data?.pricingTiers[0].minQuantity)
+  );
+
+  const generateStars = (rating) => {
+    const stars = [];
+    const fullStars = Math.floor(rating || 0);
+    const hasHalfStar = rating % 1 !== 0;
+
+    for (let i = 1; i <= 5; i++) {
+      if (i <= fullStars) {
+        stars.push("★");
+      } else if (i === fullStars + 1 && hasHalfStar) {
+        stars.push("★");
+      } else {
+        stars.push("☆");
+      }
+    }
+    return stars.join("");
+  };
+
   const handleProduct = (data) => {
     console.log(data);
   };
   return (
     <div className="p-6 shadow-md w-full max-w-2xl mx-auto text-white">
-      <h1 className="text-2xl font-bold mb-2">Sell Sheets</h1>
+      <h1 className="text-2xl font-bold mb-2">{data?.name}</h1>
       <div className="flex items-center mb-4">
-        <span className="text-xl font-bold mr-2">$52.47</span>
-        <span className="text-gray-200 text-sm mr-2">QTY: 100</span>
-        <span className="text-gray-200 text-sm">UNIT PRICE: $0.52</span>
+        <span className="text-xl font-bold mr-2">${totalPrice}</span>
+        <span className="text-gray-200 text-sm mr-2">
+          QTY: {data?.pricingTiers[0].minQuantity}
+        </span>
+        <span className="text-gray-200 text-sm">
+          UNIT PRICE: ${data?.basePrice}
+        </span>
       </div>
       <div className="flex items-center mb-4">
-        <span className="text-yellow-400 mr-1">★★★★☆</span>{" "}
-        {/* Use stars directly */}
+        <span className="text-yellow-400 mr-1">
+          {generateStars(data?.rating || 4)}
+        </span>
+
         <span className="text-blue-500 mr-2 text-sm">125 Reviews</span>
         <span className="text-blue-500 text-sm">Write a Review</span>
       </div>
 
-      <p className="mb-6 text-sm">
-        Get your messages across succinctly and strategically with Sell Sheets.
-        Also known as one sheets, they&apos;re a simple advertising tool with
-        high-impact dividends to help you market products, promotions and
-        services. Our business printing services let you customize yours for any
-        business need, with premium stocks and protective coatings. You can even
-        create marketing one sheets with variable data to tailor designs to
-        targeted audiences.
-      </p>
+      <p className="mb-6 text-sm">{data?.description}</p>
 
       <VivaForm onSubmit={handleProduct}>
         <div className="mb-6">

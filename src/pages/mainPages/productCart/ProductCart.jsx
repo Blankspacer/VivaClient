@@ -1,9 +1,35 @@
+/* eslint-disable no-unused-vars */
+import Loading from "@/components/ui/Loading";
+import useAxiosSecure from "@/hooks/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { useParams } from "react-router-dom";
 
 const ShoppingCart = () => {
+  const axiosSecure = useAxiosSecure();
+  const { id } = useParams();
   const [quantity, setQuantity] = useState(100);
   const pricePerItem = 1.8704; // Price per catalog (187.04 / 100)
   const subtotal = quantity * pricePerItem;
+
+  const { data, refetch, isLoading } = useQuery({
+    queryKey: ["product"],
+    queryFn: async () => {
+      const { data } = await axiosSecure.get(`/api/products/details/${id}`);
+      return data.data;
+    },
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const price = Number(data?.basePrice);
+  const unitCost = Number(data?.pricingTiers[0]?.unitPrice);
+
+  const total = Math.ceil(
+    Number(price) * Number(data?.pricingTiers[0].minQuantity)
+  );
 
   const handleQuantityChange = (event) => {
     const newQuantity = parseInt(event.target.value, 10) || 0;
@@ -38,9 +64,9 @@ const ShoppingCart = () => {
                   <tr>
                     <td className="py-4 px-4 border-b">
                       <div className="flex items-center">
-                        <span className="mr-2">Catalogs</span>
+                        <span className="mr-2">{data?.name}</span>
                         <button className="text-xs text-blue-500">
-                          [ CATALOGS ]
+                          [ {data?.name} ]
                         </button>
                       </div>
                       <div className="flex items-center mt-2">
@@ -62,14 +88,12 @@ const ShoppingCart = () => {
                       <input
                         type="number"
                         min="0"
-                        value={quantity}
+                        value={data?.pricingTiers[0].minQuantity}
                         onChange={handleQuantityChange}
                         className="w-20 border rounded px-2 py-1 text-black"
                       />
                     </td>
-                    <td className="py-4 px-4 border-b">
-                      ${pricePerItem.toFixed(2)}
-                    </td>
+                    <td className="py-4 px-4 border-b">${price}</td>
                   </tr>
                 </tbody>
               </table>
@@ -90,10 +114,10 @@ const ShoppingCart = () => {
                 APPLY
               </button>
             </div>
-            <div className="mb-2">SUBTOTAL: ${subtotal.toFixed(2)}</div>
+            <div className="mb-2">SUBTOTAL: ${total}</div>
             <div className="mb-2">ESTIMATE DELIVERY: $--</div>
             <div className="mb-2">SALES TAX: $-</div>
-            <div className="font-semibold">TOTAL: ${subtotal.toFixed(2)}</div>
+            <div className="font-semibold">TOTAL: ${total}</div>
             <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full hover:bg-blue-700">
               CHECKOUT
             </button>
