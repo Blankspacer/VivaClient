@@ -38,6 +38,8 @@ const Loading = lazy(() => import("../components/ui/Loading"));
 
 const AddProduct = lazy(() => import("../components/dashboard/AddProduct"));
 
+const AllProduct = lazy(() => import("../components/dashboard/AllProduct"));
+
 const AddCategory = lazy(() => import("../components/dashboard/AddCategory"));
 
 const AllCategory = lazy(() => import("../components/dashboard/AllCategory"));
@@ -121,6 +123,10 @@ const routes = createBrowserRouter([
       {
         path: "add-product",
         element: <AddProduct />,
+      },
+      {
+        path: "all-product",
+        element: <AllProduct />,
       },
       {
         path: "add-category",

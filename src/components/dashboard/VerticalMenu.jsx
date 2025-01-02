@@ -97,7 +97,7 @@ const VerticalMenu = () => {
               {/* all */}
               <li>
                 <NavLink
-                  to="/dashboard/all-properties"
+                  to="/dashboard/all-product"
                   className={({ isActive }) =>
                     `flex items-center gap-x-3.5 py-2 px-2.5  text-sm text-gray-950 rounded-lg hover:bg-gray-100 ${
                       isActive ? "bg-gray-100  text-[#7e6e2a]" : "text-gray-950"

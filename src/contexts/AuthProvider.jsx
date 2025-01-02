@@ -72,6 +72,33 @@ const AuthProvider = ({ children }) => {
     }
   };
 
+  const addProducts = async (credentials) => {
+    try {
+      const { data } = await axiosPublic.post("/api/products", credentials);
+
+      console.log(data);
+
+      return data;
+    } catch (error) {
+      return error.response.data;
+    }
+  };
+
+  const editProducts = async (id, credentials) => {
+    try {
+      const { data } = await axiosPublic.put(
+        `/api/products/${id}`,
+        credentials
+      );
+
+      console.log(data);
+
+      return data;
+    } catch (error) {
+      return error.response.data;
+    }
+  };
+
   const addToCart = async (credentials) => {
     try {
       const { data } = await axiosPublic.post("/api/cart/create", credentials);
@@ -103,7 +130,16 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ auth, login, logout, addCategory, getCategory, addToCart }}
+      value={{
+        auth,
+        login,
+        logout,
+        addCategory,
+        getCategory,
+        addToCart,
+        addProducts,
+        editProducts,
+      }}
     >
       {children}
     </AuthContext.Provider>

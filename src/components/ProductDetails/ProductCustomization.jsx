@@ -95,10 +95,10 @@ const ProductCustomization = ({ data }) => {
               </button>
             </div>
 
-            <div className="space-y-2">
+            <div className="">
               <label
                 htmlFor="finishedSize"
-                className="text-sm font-semibold flex justify-between items-center"
+                className="text-xs font-semibold mb-4"
               >
                 Total Quantity
               </label>
