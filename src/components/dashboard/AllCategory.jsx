@@ -1,19 +1,8 @@
 /* eslint-disable no-unused-vars */
-import useAuth from "@/hooks/useAuth";
-import useAxiosPublic from "@/hooks/useAxiosPublic";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
-import { get } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 import styled from "styled-components";
 import Loading from "../ui/Loading";
-
-// Sample data for categories
-const categories = [
-  { id: 1, name: "Electronics" },
-  { id: 2, name: "Clothing" },
-  { id: 3, name: "Books" },
-  { id: 4, name: "Home & Kitchen" },
-];
 
 // Styled components for the table
 const TableWrapper = styled.div`

@@ -43,7 +43,7 @@ const ProductTab = () => {
   const products = transformProducts(productsData);
   const tabs = generateTabs(productsData);
 
-  console.log({ products, tabs });
+  // console.log({ products, tabs });
 
   const filteredProducts = products.filter((product) =>
     activeTab === "SHOW_ALL" ? true : product.category === activeTab

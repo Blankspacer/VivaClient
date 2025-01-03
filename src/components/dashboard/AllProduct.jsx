@@ -31,7 +31,7 @@ const AllProduct = () => {
       const { data } = await axiosSecure.delete(`/api/products/${id}`);
       if (data.success) {
         toast.success("Product deleted successfully");
-        productReFetch(); // Refetch products after deletion
+        productReFetch();
       }
     } catch (error) {
       toast.error("Failed to delete product");

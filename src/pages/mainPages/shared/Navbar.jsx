@@ -15,7 +15,9 @@ const Navbar = () => {
 
   const { auth, logout } = useAuth();
 
-  console.log(auth?.role);
+  // console.log(auth?.role);
+
+  // console.log("Navbar rendered. Auth:", auth, "Location:", location.pathname);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
@@ -169,4 +171,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default React.memo(Navbar);

@@ -17,7 +17,7 @@ const ShoppingCart = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["products"],
+    queryKey: ["cart"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/api/cart`);
       return data.data;
@@ -32,7 +32,7 @@ const ShoppingCart = () => {
     },
     onSuccess: () => {
       toast.success("Item removed from cart");
-      queryClient.invalidateQueries(["products"]); // Refetch cart data
+      queryClient.invalidateQueries(["cart"]);
     },
     onError: (error) => {
       toast.error("Failed to remove item from cart");

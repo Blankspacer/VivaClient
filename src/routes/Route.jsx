@@ -23,9 +23,9 @@ const ContactUs = lazy(() => import("../pages/mainPages/contactUs/ContactUs"));
 
 const About = lazy(() => import("../pages/mainPages/about/About"));
 
-const BookletProduct = lazy(() =>
-  import("../pages/mainPages/bookletProductPage/BookletProduct")
-);
+// const BookletProduct = lazy(() =>
+//   import("../pages/mainPages/bookletProductPage/BookletProduct")
+// );
 
 const ShoppingCart = lazy(() =>
   import("../pages/mainPages/productCart/ProductCart")
@@ -83,14 +83,14 @@ const routes = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
-      {
-        path: "/:category",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <BookletProduct />
-          </Suspense>
-        ),
-      },
+      // {
+      //   path: "/:category",
+      //   element: (
+      //     <Suspense fallback={<Loading />}>
+      //       <BookletProduct />
+      //     </Suspense>
+      //   ),
+      // },
       {
         path: "/cart",
         element: <ShoppingCart />,
