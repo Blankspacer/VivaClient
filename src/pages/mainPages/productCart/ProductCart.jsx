@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-import Loading from "@/components/ui/Loading";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -20,9 +19,9 @@ const ShoppingCart = () => {
     },
   });
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   const total = cart.reduce((accumulator, currentItem) => {
     return accumulator + currentItem.totalPrice;

@@ -7,7 +7,6 @@ import { ImageGallery } from "@/components/ProductDetails/ImageGallery";
 import ProductCustomization from "@/components/ProductDetails/ProductCustomization";
 import { ProductInformation } from "@/components/ProductDetails/ProductInfo";
 import Turnaround from "@/components/ProductDetails/TurnAround";
-import Loading from "@/components/ui/Loading";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -30,9 +29,9 @@ const ProductDetails = () => {
     },
   });
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   console.log(data);
 

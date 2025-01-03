@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-vars */
+import { generateTabs, transformProducts } from "@/helpers/transformProduct";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../ui/Loading";
-import { generateTabs, transformProducts } from "@/helpers/transformProduct";
 
 const ProductTab = () => {
   const navigate = useNavigate();
@@ -37,9 +36,9 @@ const ProductTab = () => {
   //   return <Loading />;
   // }
 
-  if (productLoading) {
-    return <Loading />;
-  }
+  // if (productLoading) {
+  //   return <Loading />;
+  // }
 
   // console.log({ data });
 
