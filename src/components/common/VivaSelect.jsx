@@ -141,7 +141,7 @@ const VivaSelect = ({
   return (
     <div className="flex flex-col space-y-2">
       {label && (
-        <label htmlFor={name} className="text-sm font-semibold">
+        <label htmlFor={name} className="text-xs font-semibold">
           {label}
         </label>
       )}

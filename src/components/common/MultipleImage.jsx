@@ -1,10 +1,20 @@
 /* eslint-disable react/prop-types */
 
-const MultipleImage = ({ previewImages, setPreviewImages }) => {
+const MultipleImage = ({ previewImages, setPreviewImages, setImageFiles }) => {
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
+
+    // Create preview URLs
     const imagePreviews = files.map((file) => URL.createObjectURL(file));
+
+    // Update preview images state
     setPreviewImages((prev) => [...prev, ...imagePreviews]);
+
+    // Convert files to File objects and update imageFiles state
+    const fileObjects = files.map((file) => {
+      return new File([file], file.name, { type: file.type });
+    });
+    setImageFiles((prev) => [...prev, ...fileObjects]);
   };
 
   return (

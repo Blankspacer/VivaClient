@@ -38,7 +38,7 @@ const ProductDetails = () => {
   return (
     <div className="bg-gray-800 text-white p-6 rounded-lg">
       <div className="max-w-7xl flex gap-6 content-center mx-auto">
-        <div>
+        <div className="w-[100%]">
           <ImageGallery data={data?.images} />
           <div className="mt-6">
             <AccordionSection
@@ -67,7 +67,7 @@ const ProductDetails = () => {
           </div>
         </div>
 
-        <div className="w-[100%] shadow-md bg-gray-400 rounded bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-600">
+        <div className="w-[50%] shadow-md bg-gray-400 rounded bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-600">
           <ProductCustomization data={data} />
           <Turnaround />
           <FloatingAddToCart data={data} />
