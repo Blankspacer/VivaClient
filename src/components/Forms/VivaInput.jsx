@@ -35,7 +35,7 @@ const VivaInput = ({
             type={type}
             size={size}
             disabled={disabled}
-            className={`w-full px-2 py-2 rounded-sm text-sm bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-400 content-center ${className}`}
+            className={`w-full px-2 py-2 rounded-sm text-sm bg-gray-700 bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-600 content-center ${className}`}
           />
         </div>
       )}

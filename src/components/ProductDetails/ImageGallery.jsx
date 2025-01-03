@@ -5,7 +5,7 @@ import { MainImage } from "./MainImage";
 
 export function ImageGallery({ data }) {
   const [selectedImage, setSelectedImage] = useState(data[0].url);
-  console.log({ selectedImage });
+
   return (
     <div className="flex gap-4">
       <div className="flex flex-col justify-center">

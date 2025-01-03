@@ -45,6 +45,10 @@ const AddCategory = lazy(() => import("../components/dashboard/AddCategory"));
 
 const AllCategory = lazy(() => import("../components/dashboard/AllCategory"));
 
+const CheckoutPage = lazy(() =>
+  import("../pages/mainPages/checkoutPage/checkoutPage")
+);
+
 const routes = createBrowserRouter([
   {
     path: "/",
@@ -89,19 +93,15 @@ const routes = createBrowserRouter([
       },
       {
         path: "/cart",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <ShoppingCart />
-          </Suspense>
-        ),
+        element: <ShoppingCart />,
+      },
+      {
+        path: "/cart/checkout",
+        element: <CheckoutPage />,
       },
       {
         path: "/product/:id",
-        element: (
-          <Suspense fallback={<Loading />}>
-            <ProductDetails />
-          </Suspense>
-        ),
+        element: <ProductDetails />,
       },
     ],
   },

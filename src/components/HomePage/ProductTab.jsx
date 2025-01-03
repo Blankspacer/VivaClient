@@ -4,20 +4,13 @@ import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "../ui/Loading";
 
 const ProductTab = () => {
   const navigate = useNavigate();
 
   const axiosSecure = useAxiosSecure();
   const [activeTab, setActiveTab] = useState("SHOW_ALL");
-  // const { data, refetch, isLoading } = useQuery({
-  //   queryKey: ["categories"],
-  //   queryFn: async () => {
-  //     const { data } = await axiosSecure.get("/api/categories");
-  //     console.log(data.data);
-  //     return data;
-  //   },
-  // });
 
   const {
     data: productsData,
@@ -25,7 +18,7 @@ const ProductTab = () => {
     isLoading: productLoading,
     isError,
   } = useQuery({
-    queryKey: ["categories"],
+    queryKey: ["products"],
     queryFn: async () => {
       const { data } = await axiosSecure.get("/api/products");
 
@@ -33,13 +26,9 @@ const ProductTab = () => {
     },
   });
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
-
-  // if (productLoading) {
-  //   return <Loading />;
-  // }
+  if (productLoading) {
+    return <Loading />;
+  }
 
   // console.log({ data });
 

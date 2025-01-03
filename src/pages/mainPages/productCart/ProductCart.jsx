@@ -1,8 +1,10 @@
 /* eslint-disable no-unused-vars */
+import Loading from "@/components/ui/Loading";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 const ShoppingCart = () => {
   const axiosSecure = useAxiosSecure();
@@ -15,7 +17,7 @@ const ShoppingCart = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["product"],
+    queryKey: ["products"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/api/cart`);
       return data.data;
@@ -30,7 +32,7 @@ const ShoppingCart = () => {
     },
     onSuccess: () => {
       toast.success("Item removed from cart");
-      queryClient.invalidateQueries(["product"]); // Refetch cart data
+      queryClient.invalidateQueries(["products"]); // Refetch cart data
     },
     onError: (error) => {
       toast.error("Failed to remove item from cart");
@@ -42,10 +44,6 @@ const ShoppingCart = () => {
     deleteMutation.mutate(itemId);
   };
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
-
   if (isError) {
     return (
       <h1 className="mt-16 mb-8 text-4xl font-extrabold text-red-500 min-w-full text-center align-middle place-content-center">
@@ -54,7 +52,13 @@ const ShoppingCart = () => {
     );
   }
 
-  const total = (cart || []).reduce((accumulator, currentItem) => {
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  console.log(cart);
+
+  const total = (cart || [])?.reduce((accumulator, currentItem) => {
     return accumulator + currentItem.totalPrice;
   }, 0);
 
@@ -166,9 +170,11 @@ const ShoppingCart = () => {
             <div className="mb-2">ESTIMATE DELIVERY: $--</div>
             <div className="mb-2">SALES TAX: $-</div>
             <div className="font-semibold">TOTAL: ${total}</div>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full hover:bg-blue-700">
-              CHECKOUT
-            </button>
+            <Link to="/cart/checkout">
+              <button className="bg-blue-500 text-white px-4 py-2 rounded mt-4 w-full hover:bg-blue-700">
+                CHECKOUT
+              </button>
+            </Link>
           </div>
         </div>
       </div>

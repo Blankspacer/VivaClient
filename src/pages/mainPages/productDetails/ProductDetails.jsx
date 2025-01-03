@@ -7,6 +7,7 @@ import { ImageGallery } from "@/components/ProductDetails/ImageGallery";
 import ProductCustomization from "@/components/ProductDetails/ProductCustomization";
 import { ProductInformation } from "@/components/ProductDetails/ProductInfo";
 import Turnaround from "@/components/ProductDetails/TurnAround";
+import Loading from "@/components/ui/Loading";
 import useAxiosSecure from "@/hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
@@ -29,16 +30,16 @@ const ProductDetails = () => {
     },
   });
 
-  // if (isLoading) {
-  //   return <Loading />;
-  // }
-
   if (isError) {
     return (
       <h1 className="mt-16 mb-8 text-4xl font-extrabold text-red-500 min-w-full text-center align-middle place-content-center">
         Failed to fetch products. Please try again later.
       </h1>
     );
+  }
+
+  if (isLoading) {
+    return <Loading />;
   }
 
   console.log(data);
