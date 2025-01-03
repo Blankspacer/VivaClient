@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import PriceDisplay from "./PriceDisplay";
-import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 import toast from "react-hot-toast";
 
@@ -20,7 +19,6 @@ const AddToCartButton = ({ onClick }) => {
 };
 
 export function FloatingAddToCart({ data }) {
-  const navigate = useNavigate();
   const { addToCart } = useAuth();
   const [isFloating, setIsFloating] = useState(false);
 
@@ -95,7 +93,6 @@ export function FloatingAddToCart({ data }) {
     console.log(data);
     if (data.success == true) {
       toast.success("Product Added To Cart");
-      navigate(`/cart`);
     }
   };
 
