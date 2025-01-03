@@ -1,16 +1,19 @@
 /* eslint-disable no-unused-vars */
 import useAxiosSecure from "@/hooks/useAxiosSecure";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const ShoppingCart = () => {
   const axiosSecure = useAxiosSecure();
+  const queryClient = useQueryClient();
   const [quantity, setQuantity] = useState(100);
 
   const {
     data: cart,
     refetch,
     isLoading,
+    isError,
   } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
@@ -19,11 +22,39 @@ const ShoppingCart = () => {
     },
   });
 
+  // Mutation for deleting an item from the cart
+  const deleteMutation = useMutation({
+    mutationFn: async (itemId) => {
+      const { data } = await axiosSecure.delete(`/api/cart/${itemId}`);
+      return data;
+    },
+    onSuccess: () => {
+      toast.success("Item removed from cart");
+      queryClient.invalidateQueries(["product"]); // Refetch cart data
+    },
+    onError: (error) => {
+      toast.error("Failed to remove item from cart");
+      console.error(error);
+    },
+  });
+
+  const handleDelete = (itemId) => {
+    deleteMutation.mutate(itemId);
+  };
+
   // if (isLoading) {
   //   return <Loading />;
   // }
 
-  const total = cart.reduce((accumulator, currentItem) => {
+  if (isError) {
+    return (
+      <h1 className="mt-16 mb-8 text-4xl font-extrabold text-red-500 min-w-full text-center align-middle place-content-center">
+        Failed to fetch products. Please try again later.
+      </h1>
+    );
+  }
+
+  const total = (cart || []).reduce((accumulator, currentItem) => {
     return accumulator + currentItem.totalPrice;
   }, 0);
 
@@ -46,18 +77,17 @@ const ShoppingCart = () => {
           <div className="p-4 text-white shadow bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-600">
             <h2 className="text-lg font-semibold mb-2">SHOPPING CART</h2>
             <div className="overflow-x-auto">
-              {" "}
-              {/* Added for horizontal scrolling */}
               <table className="w-full border-collapse">
                 <thead>
                   <tr className="bg-gray-200 text-black">
                     <th className="py-2 px-4 text-left"></th>
                     <th className="py-2 px-4 text-left">QUANTITY</th>
                     <th className="py-2 px-4 text-left">PRICE</th>
+                    <th className="py-2 px-4 text-left">ACTION</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {cart.length > 0 ? (
+                  {cart && cart.length > 0 ? (
                     cart.map((data) => (
                       <tr key={data._id}>
                         <td className="py-4 px-4 border-b">
@@ -68,9 +98,6 @@ const ShoppingCart = () => {
                             </button>
                           </div>
                           <div className="flex items-center mt-2">
-                            {/* <button className="text-xs text-blue-500 mr-2">
-                          ADD FILE[S]
-                        </button> */}
                             <button className="text-xs text-blue-500 mr-2">
                               configuration
                             </button>
@@ -97,12 +124,24 @@ const ShoppingCart = () => {
                             Number(data?.basePrice) * Number(data?.quantity)
                           )}
                         </td>
+                        <td className="py-4 px-4 border-b">
+                          <button
+                            onClick={() => handleDelete(data._id)}
+                            className="text-red-500 hover:text-red-700"
+                          >
+                            Delete
+                          </button>
+                        </td>
                       </tr>
                     ))
                   ) : (
-                    <h1 className="text-center text-3xl text-red-500">
-                      No Product in Cart
-                    </h1>
+                    <tr>
+                      <td colSpan="4" className="text-center py-4">
+                        <h1 className="text-3xl text-red-500">
+                          No Product in Cart
+                        </h1>
+                      </td>
+                    </tr>
                   )}
                 </tbody>
               </table>

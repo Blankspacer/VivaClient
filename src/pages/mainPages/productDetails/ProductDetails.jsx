@@ -21,7 +21,7 @@ const ProductDetails = () => {
     setOpenSection(openSection === section ? "" : section);
   };
 
-  const { data, refetch, isLoading } = useQuery({
+  const { data, refetch, isLoading, isError } = useQuery({
     queryKey: ["product"],
     queryFn: async () => {
       const { data } = await axiosSecure.get(`/api/products/details/${id}`);
@@ -32,6 +32,14 @@ const ProductDetails = () => {
   // if (isLoading) {
   //   return <Loading />;
   // }
+
+  if (isError) {
+    return (
+      <h1 className="mt-16 mb-8 text-4xl font-extrabold text-red-500 min-w-full text-center align-middle place-content-center">
+        Failed to fetch products. Please try again later.
+      </h1>
+    );
+  }
 
   console.log(data);
 

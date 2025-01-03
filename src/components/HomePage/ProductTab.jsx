@@ -23,6 +23,7 @@ const ProductTab = () => {
     data: productsData,
     refetch: productReFetch,
     isLoading: productLoading,
+    isError,
   } = useQuery({
     queryKey: ["categories"],
     queryFn: async () => {
@@ -41,6 +42,14 @@ const ProductTab = () => {
   // }
 
   // console.log({ data });
+
+  if (isError) {
+    return (
+      <h1 className="mt-16 mb-8 text-4xl font-extrabold text-red-500 min-w-full text-center align-middle place-content-center">
+        Failed to fetch products. Please try again later.
+      </h1>
+    );
+  }
 
   const products = transformProducts(productsData);
   const tabs = generateTabs(productsData);

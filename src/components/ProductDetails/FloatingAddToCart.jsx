@@ -24,16 +24,12 @@ export function FloatingAddToCart({ data }) {
   const { addToCart } = useAuth();
   const [isFloating, setIsFloating] = useState(false);
 
-  console.log(data);
-
-  console.log(data?.pricingTiers[0].unitPrice);
-
   // console.log(data);
-  const price = Number(data?.basePrice);
-  const unitCost = Number(data?.pricingTiers[0]?.unitPrice);
+  const price = Number(data?.basePrice) || 0;
+  const unitCost = Number(data?.pricingTiers[0]?.unitPrice) || 0;
 
   const total = Math.ceil(
-    Number(price) * Number(data?.pricingTiers[0].minQuantity)
+    Number(price) * Number(data?.pricingTiers[0].minQuantity) || 0
   );
 
   const cost = {
